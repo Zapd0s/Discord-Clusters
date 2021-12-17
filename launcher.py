@@ -31,7 +31,7 @@ NAMES = iter(CLUSTER_NAMES)
 
 class Launcher:
     def __init__(self, loop):
-        log.info("Hello, world!")
+        log.info("Launcher init called.")
         self.cluster_queue = []
         self.clusters = []
 
@@ -149,7 +149,7 @@ class Cluster:
         fhdlr = logging.FileHandler("cluster-Launcher.log", encoding='utf-8')
         fhdlr.setFormatter(logging.Formatter("[%(asctime)s %(name)s/%(levelname)s] %(message)s"))
         self.log.handlers = [hdlr, fhdlr]
-        self.log.info(f"Initialized with shard ids {shard_ids}, total shards {max_shards}")
+        self.log.info(f"Initialized with shard IDs {shard_ids}, total shards {max_shards}")
 
     def wait_close(self):
         return self.process.join()
