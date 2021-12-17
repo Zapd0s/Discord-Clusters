@@ -135,8 +135,6 @@ class Cluster:
         self.launcher = launcher
         self.process = None
         self.kwargs = dict(
-            token=TOKEN,
-            command_prefix="$$",
             shard_ids=shard_ids,
             shard_count=max_shards,
             cluster_name=name
