@@ -40,13 +40,6 @@ class ClusterBot(commands.AutoShardedBot):
     async def on_shard_ready(self, shard_id):
         self.log.info(f'[Cluster#{self.cluster_name}] Shard {shard_id} ready')
 
-    async def on_command_error(self, ctx, exc):
-        if not isinstance(exc, (commands.CommandNotFound, commands.NotOwner)):
-            self.log.critical(''.join(traceback.format_exception(type(exc), exc, exc.__traceback__)))
-            await ctx.send("check logs")
-
-    async def on_error(self, *args, **kwargs):
-        self.log.critical(traceback.format_exc())
 
     def cleanup_code(self, content):
         """Automatically removes code blocks from the code."""
