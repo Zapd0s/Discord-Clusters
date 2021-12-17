@@ -26,7 +26,7 @@ class ClusterBot(commands.AutoShardedBot):
         log.setLevel(logging.DEBUG)
         log.handlers = [logging.FileHandler(f'cluster-{self.cluster_name}.log', encoding='utf-8', mode='a')]
 
-        log.info(f'[Cluster#{self.cluster_name}] {kwargs["shard_ids"]}, {kwargs["shard_count"]}')
+        log.info(f'[Cluster#{self.cluster_name}] Shard IDs {kwargs["shard_ids"]}, Total {kwargs["shard_count"]}')
         self.log = log
         self.load_extension("eval")
         self.loop.create_task(self.ensure_ipc())
@@ -38,7 +38,7 @@ class ClusterBot(commands.AutoShardedBot):
         self.pipe.close()
 
     async def on_shard_ready(self, shard_id):
-        self.log.info(f'[Cluster#{self.cluster_name}] Shard {shard_id} ready')
+        self.log.info(f'[Cluster#{self.cluster_name}] Shard {shard_id} Ready')
 
 
     def cleanup_code(self, content):
@@ -131,8 +131,8 @@ class ClusterBot(commands.AutoShardedBot):
         try:
             await w.recv()
             self.ws_task = self.loop.create_task(self.websocket_loop())
-            self.log.info("ws connection succeeded")
+            self.log.info("IPC websocket connected.")
         except websockets.ConnectionClosed as exc:
-            self.log.warning(f"! couldnt connect to ws: {exc.code} {exc.reason}")
+            self.log.warning(f"Could not connect to IPC websocket: {exc.code} {exc.reason}")
             self.websocket = None
             raise
